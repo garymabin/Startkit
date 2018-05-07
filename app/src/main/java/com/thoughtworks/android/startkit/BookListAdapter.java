@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,13 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         holder.ratingVal.setText(String.valueOf(data.getItemRating()));
 
 
-        Glide
-                .with(StartkitApplication.getApplication())
+        Glide.with(StartkitApplication.getApplication())
                 .load(data.getItemImage())
-                .centerCrop()
-                .placeholder(R.drawable.ic_default_cover)
-                .crossFade()
+                .apply(RequestOptions
+                        .placeholderOf(R.drawable.ic_default_cover)
+                        .centerCrop()
+                        .dontAnimate()
+                        .dontTransform())
                 .into(holder.image);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

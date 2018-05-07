@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class BookDetailActivity extends Activity {
 
@@ -43,12 +44,13 @@ public class BookDetailActivity extends Activity {
         ratingVal.setText(String.valueOf(book.getItemRating()));
 
 
-        Glide
-                .with(StartkitApplication.getApplication())
+        Glide.with(StartkitApplication.getApplication())
                 .load(book.getItemImage())
-                .centerCrop()
-                .placeholder(R.drawable.ic_default_cover)
-                .crossFade()
+                .apply(RequestOptions
+                        .placeholderOf(R.drawable.ic_default_cover)
+                        .centerCrop()
+                        .dontAnimate()
+                        .dontTransform())
                 .into(image);
 
     }
