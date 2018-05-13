@@ -56,11 +56,11 @@ public class BookListViewModel extends ViewModel {
     }
 
     public void startLoading(boolean isLoadingMore) {
-        loadingEvent.postValue(new Event(isLoadingMore ? START_LOADING_MORE : START_LOADING));
+        loadingEvent.setValue(new Event(isLoadingMore ? START_LOADING_MORE : START_LOADING));
     }
 
     public void stopLoading(boolean isLoadingMore) {
-        loadingEvent.postValue(new Event(isLoadingMore ? STOP_LOADING_MORE : STOP_LOADING));
+        loadingEvent.setValue(new Event(isLoadingMore ? STOP_LOADING_MORE : STOP_LOADING));
     }
 
     private boolean isLoading() {

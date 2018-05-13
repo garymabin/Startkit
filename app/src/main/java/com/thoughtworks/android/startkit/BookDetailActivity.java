@@ -11,31 +11,32 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BookDetailActivity extends Activity {
 
-
-    public TextView title;
-    public TextView information;
-    public TextView summary;
-    public ImageView image;
-    public RatingBar ratingBar;
-    public TextView ratingVal;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.information)
+    TextView information;
+    @BindView(R.id.summary)
+    TextView summary;
+    @BindView(R.id.thumbnail)
+    ImageView image;
+    @BindView(R.id.rating)
+    RatingBar ratingBar;
+    @BindView(R.id.ratingValue)
+    TextView ratingVal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         BookItem book = intent.getParcelableExtra("BOOK");
-
-        title = (TextView) findViewById(R.id.title);
-        information = (TextView) findViewById(R.id.information);
-        summary = (TextView) findViewById(R.id.summary);
-        image = (ImageView) findViewById(R.id.thumbnail);
-        ratingBar = (RatingBar) findViewById(R.id.rating);
-        ratingVal = (TextView) findViewById(R.id.ratingValue);
-
 
         title.setText(book.getItemTitle());
         summary.setText(book.getItemSummary());

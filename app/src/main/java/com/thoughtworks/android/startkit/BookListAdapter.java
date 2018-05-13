@@ -2,7 +2,6 @@ package com.thoughtworks.android.startkit;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,14 +54,11 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
                         .dontTransform())
                 .into(holder.image);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, BookDetailActivity.class);
-                intent.putExtra("BOOK", mBooks.get(position));
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, BookDetailActivity.class);
+            intent.putExtra("BOOK", mBooks.get(position));
+            context.startActivity(intent);
         });
     }
 
@@ -74,7 +70,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public void clearAll() {
         mBooks.clear();
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -94,7 +89,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            ButterKnife.bind(this,v);
+            ButterKnife.bind(this, v);
         }
     }
 }
