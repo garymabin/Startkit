@@ -1,6 +1,6 @@
 package com.thoughtworks.android.startkit.book;
 
-import com.thoughtworks.android.startkit.BookItem;
+import com.thoughtworks.android.startkit.douban.books.data.domain.BookItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -1,9 +1,8 @@
 package com.thoughtworks.android.startkit.book;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
-import com.thoughtworks.android.startkit.BookItem;
+import com.thoughtworks.android.startkit.douban.books.data.domain.BookItem;
 
 public class Book extends BookItem {
     private String title;

@@ -1,6 +1,4 @@
-package com.thoughtworks.android.startkit;
-
-import com.thoughtworks.android.startkit.retrofit.DouBanResponseData;
+package com.thoughtworks.android.startkit.douban.books.data.domain;
 
 import java.util.List;
 

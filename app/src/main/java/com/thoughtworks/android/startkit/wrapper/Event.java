@@ -21,4 +21,20 @@ public class Event<T> {
         hasBeenhandled = true;
         return content;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+        if (((Event) obj).getContent().equals(this.getContent())) {
+            return true;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return content.hashCode();
+    }
 }

@@ -1,13 +1,16 @@
-package com.thoughtworks.android.startkit.retrofit;
-
-import com.thoughtworks.android.startkit.BookItem;
+package com.thoughtworks.android.startkit.douban.books.data.domain;
 
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 /**
  * Created by zhuang on 12/03/2017.
  */
 
+@Builder
+@AllArgsConstructor
 public class DouBanResponseData {
     /**
      * count : 1
@@ -53,6 +56,8 @@ public class DouBanResponseData {
         this.books = books;
     }
 
+    @Builder
+    @AllArgsConstructor
     public static class BooksBean {
 
         /**

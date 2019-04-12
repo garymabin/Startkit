@@ -1,33 +1,35 @@
-package com.thoughtworks.android.startkit;
+package com.thoughtworks.android.startkit.douban.books.view;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.thoughtworks.android.startkit.viewmodels.BookListViewModel;
+import com.thoughtworks.android.startkit.R;
+import com.thoughtworks.android.startkit.douban.books.adapter.BookListAdapter;
+import com.thoughtworks.android.startkit.douban.books.viewmodel.DoubanBooksViewModel;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.thoughtworks.android.startkit.viewmodels.BookListViewModel.START_LOADING;
-import static com.thoughtworks.android.startkit.viewmodels.BookListViewModel.START_LOADING_MORE;
-import static com.thoughtworks.android.startkit.viewmodels.BookListViewModel.STOP_LOADING;
-import static com.thoughtworks.android.startkit.viewmodels.BookListViewModel.STOP_LOADING_MORE;
+import static com.thoughtworks.android.startkit.douban.books.viewmodel.DoubanBooksViewModel.START_LOADING;
+import static com.thoughtworks.android.startkit.douban.books.viewmodel.DoubanBooksViewModel.START_LOADING_MORE;
+import static com.thoughtworks.android.startkit.douban.books.viewmodel.DoubanBooksViewModel.STOP_LOADING;
+import static com.thoughtworks.android.startkit.douban.books.viewmodel.DoubanBooksViewModel.STOP_LOADING_MORE;
 
 
 public class BookItemListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private BookListViewModel bookListViewModel;
+    private DoubanBooksViewModel bookListViewModel;
 
     @BindView(android.R.id.list)
     RecyclerView mListView;
@@ -45,8 +47,7 @@ public class BookItemListFragment extends Fragment implements SwipeRefreshLayout
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        bookListViewModel = ViewModelProviders.of(this).get(BookListViewModel.class);
-        bookListViewModel.init();
+        bookListViewModel = ViewModelProviders.of(this).get(DoubanBooksViewModel.class);
 
         bookListViewModel.getBooks().observe(this, books -> {
             assert books != null;
@@ -124,6 +125,6 @@ public class BookItemListFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        bookListViewModel.init();
+        bookListViewModel.refresh();
     }
 }

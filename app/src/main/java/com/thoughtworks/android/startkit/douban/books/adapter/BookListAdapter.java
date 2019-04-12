@@ -1,8 +1,7 @@
-package com.thoughtworks.android.startkit;
+package com.thoughtworks.android.startkit.douban.books.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.thoughtworks.android.startkit.BookDetailActivity;
+import com.thoughtworks.android.startkit.douban.books.data.domain.BookItem;
+import com.thoughtworks.android.startkit.R;
+import com.thoughtworks.android.startkit.StartkitApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -87,7 +91,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         @BindView(R.id.ratingValue)
         TextView ratingVal;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }

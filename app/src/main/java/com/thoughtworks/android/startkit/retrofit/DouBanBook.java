@@ -1,9 +1,7 @@
 package com.thoughtworks.android.startkit.retrofit;
 
-import android.os.Parcel;
-
-import com.thoughtworks.android.startkit.BookItem;
 import com.thoughtworks.android.startkit.book.Book;
+import com.thoughtworks.android.startkit.douban.books.data.domain.DouBanResponseData;
 
 /**
  * Created by zhuang on 12/03/2017.

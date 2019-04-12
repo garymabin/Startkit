@@ -1,11 +1,12 @@
 package com.thoughtworks.android.startkit;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.thoughtworks.android.startkit.douban.books.view.BookItemListFragment;
 
-    private static final String TAG = "Main";
+import androidx.fragment.app.FragmentActivity;
+
+public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

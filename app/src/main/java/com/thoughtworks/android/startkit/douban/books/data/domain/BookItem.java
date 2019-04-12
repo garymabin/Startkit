@@ -1,4 +1,4 @@
-package com.thoughtworks.android.startkit;
+package com.thoughtworks.android.startkit.douban.books.data.domain;
 
 import android.os.Parcelable;
 import android.text.TextUtils;
