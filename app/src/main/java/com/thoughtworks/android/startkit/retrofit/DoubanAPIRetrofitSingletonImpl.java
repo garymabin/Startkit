@@ -1,7 +1,7 @@
 package com.thoughtworks.android.startkit.retrofit;
 
-import com.thoughtworks.android.startkit.douban.books.data.api.IDoubanBooksAPI;
-import com.thoughtworks.android.startkit.douban.books.data.domain.DouBanResponseData;
+import com.thoughtworks.android.startkit.douban.movie.data.api.IDoubanMovieAPI;
+import com.thoughtworks.android.startkit.douban.movie.data.domain.DouBanMovieResponseData;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 @Singleton
-public class DoubanAPIRetrofitSingletonImpl implements IDoubanBooksAPI {
+public class DoubanAPIRetrofitSingletonImpl implements IDoubanMovieAPI {
 
     private String DATA_URL = "https://api.douban.com";
     private final Retrofit mRetrofit;
@@ -31,7 +31,7 @@ public class DoubanAPIRetrofitSingletonImpl implements IDoubanBooksAPI {
         mService = mRetrofit.create(DouBanService.class);
     }
     @Override
-    public Single<DouBanResponseData> getBooks(Map<String, String> options) {
-        return mService.getBooks(options);
+    public Single<DouBanMovieResponseData> getMovie(Map<String, String> options) {
+        return mService.getTop250Movies(options);
     }
 }

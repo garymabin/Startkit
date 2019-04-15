@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.thoughtworks.android.startkit.douban.books.data.domain.BookItem;
+import com.thoughtworks.android.startkit.douban.movie.data.domain.MovieItem;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -37,7 +37,7 @@ public class BookDetailActivity extends Activity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        BookItem book = intent.getParcelableExtra("BOOK");
+        MovieItem book = intent.getParcelableExtra("BOOK");
 
         title.setText(book.getItemTitle());
         summary.setText(book.getItemSummary());

@@ -1,7 +1,6 @@
 package com.thoughtworks.android.startkit.retrofit;
 
-import com.thoughtworks.android.startkit.douban.books.data.api.IDoubanBooksAPI;
-import com.thoughtworks.android.startkit.douban.books.data.domain.DouBanResponseData;
+import com.thoughtworks.android.startkit.douban.movie.data.domain.DouBanMovieResponseData;
 
 import java.util.Map;
 
@@ -13,8 +12,8 @@ import retrofit2.http.QueryMap;
  * Created by zhuang on 12/03/2017.
  */
 
-public interface DouBanService extends IDoubanBooksAPI {
+public interface DouBanService {
 
-    @GET("/v2/book/search")
-    Single<DouBanResponseData> getBooks(@QueryMap Map<String, String> options);
+    @GET("/v2/movie/top250")
+    Single<DouBanMovieResponseData> getTop250Movies(@QueryMap Map<String, String> options);
 }
