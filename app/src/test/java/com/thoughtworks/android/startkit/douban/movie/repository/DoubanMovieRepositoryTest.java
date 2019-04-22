@@ -2,8 +2,8 @@ package com.thoughtworks.android.startkit.douban.movie.repository;
 
 
 import com.thoughtworks.android.startkit.douban.movie.data.api.IDoubanMovieAPI;
-import com.thoughtworks.android.startkit.douban.movie.data.domain.MovieData;
-import com.thoughtworks.android.startkit.douban.movie.data.domain.DouBanMovieResponseData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNull;
 public class DoubanMovieRepositoryTest {
 
     @Mock
-    private IDoubanMovieAPI doubanBooksAPI;
+    private IDoubanMovieAPI doubanMovieAPI;
 
     @InjectMocks
     private DoubanMovieRepository doubanMovieRepository;
@@ -60,17 +60,16 @@ public class DoubanMovieRepositoryTest {
         List<DouBanMovieResponseData.MovieBean> expectedBooks = Collections.emptyList();
 
         //When
-        Mockito.when(doubanBooksAPI.getMovie(ArgumentMatchers.any()))
+        Mockito.when(doubanMovieAPI.getMovie(ArgumentMatchers.any()))
                 .thenReturn(Single.just(
                         DouBanMovieResponseData.builder()
                                 .subjects(expectedBooks)
                                 .build()));
         //Then
-        LiveData<MovieData> actualLiveData = doubanMovieRepository.getBooks(0);
+        LiveData<MovieData> actualLiveData = doubanMovieRepository.getMovie(0);
 
-        Mockito.verify(doubanBooksAPI).getMovie(queryMapCaptor.capture());
+        Mockito.verify(doubanMovieAPI).getMovie(queryMapCaptor.capture());
 
-        assertEquals("IT", queryMapCaptor.getValue().get("tag"));
         assertEquals("20", queryMapCaptor.getValue().get("count"));
         assertEquals("0", queryMapCaptor.getValue().get("start"));
 

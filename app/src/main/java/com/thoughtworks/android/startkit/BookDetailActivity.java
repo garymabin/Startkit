@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.thoughtworks.android.startkit.douban.movie.data.domain.MovieItem;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieItem;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;

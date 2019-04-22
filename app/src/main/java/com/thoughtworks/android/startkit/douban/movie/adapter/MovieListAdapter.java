@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.thoughtworks.android.startkit.BookDetailActivity;
-import com.thoughtworks.android.startkit.douban.movie.data.domain.MovieItem;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieItem;
 import com.thoughtworks.android.startkit.R;
 import com.thoughtworks.android.startkit.StartkitApplication;
 
@@ -78,7 +78,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.title)
         TextView title;

@@ -1,9 +1,10 @@
 package com.thoughtworks.android.startkit.retrofit;
 
-import com.thoughtworks.android.startkit.douban.movie.data.domain.DouBanMovieResponseData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
 
 import java.util.Map;
 
+import androidx.lifecycle.LiveData;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
@@ -15,5 +16,5 @@ import retrofit2.http.QueryMap;
 public interface DouBanService {
 
     @GET("/v2/movie/top250")
-    Single<DouBanMovieResponseData> getTop250Movies(@QueryMap Map<String, String> options);
+    LiveData<ApiResponse<DouBanMovieResponseData>> getTop250Movies(@QueryMap Map<String, String> options);
 }

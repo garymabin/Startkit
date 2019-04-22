@@ -1,14 +1,24 @@
 package com.thoughtworks.android.startkit.douban.movie.viewmodel;
 
 
-import com.thoughtworks.android.startkit.douban.movie.data.domain.MovieData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieData;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieItem;
 import com.thoughtworks.android.startkit.douban.movie.repository.IDoubanMovieRepository;
+import com.thoughtworks.android.startkit.retrofit.ApiResponse;
+import com.thoughtworks.android.startkit.retrofit.DouBanMovie;
+import com.thoughtworks.android.startkit.util.AbsentLiveData;
 import com.thoughtworks.android.startkit.wrapper.Event;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,23 +32,36 @@ public class DoubanMovieViewModel extends ViewModel {
     public final static int START_LOADING_MORE = 3;
     public final static int STOP_LOADING_MORE = 4;
 
-    private LiveData<MovieData> books;
+    private MutableLiveData<Integer> startIndex = new MutableLiveData<>();
+
+    @Getter
+    private LiveData<MovieData> movies = Transformations.switchMap(startIndex, index -> {
+        if (index == null) {
+            return AbsentLiveData.create();
+        } else {
+            return Transformations.map(this.movieRepository.getMovie(index), transformFromAPIResponseToPageData());
+        }
+    });
+
+    /* package */ static Function<ApiResponse<DouBanMovieResponseData>, MovieData> transformFromAPIResponseToPageData() {
+        return response -> {
+            DouBanMovieResponseData douBanMovieResponseData = response.body;
+            List<MovieItem> list = new ArrayList<>();
+            for (DouBanMovieResponseData.MovieBean bean : douBanMovieResponseData.getSubjects()) {
+                list.add(new DouBanMovie(bean));
+            }
+            return new MovieData(list, douBanMovieResponseData.getTotal(), douBanMovieResponseData.getCount(), douBanMovieResponseData.getStart());
+        };
+    }
 
     @Getter
     /**/ MutableLiveData<Event<Integer>> loadingEvent = new MutableLiveData<>();
 
-    private IDoubanMovieRepository bookRepository;
+    private IDoubanMovieRepository movieRepository;
 
     @Inject
-    public DoubanMovieViewModel(IDoubanMovieRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
-
-    public LiveData<MovieData> getBooks() {
-        if (this.books == null) {
-            refresh();
-        }
-        return this.books;
+    DoubanMovieViewModel(IDoubanMovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
     }
 
     public void startLoading(boolean isLoadingMore) {
@@ -58,12 +81,11 @@ public class DoubanMovieViewModel extends ViewModel {
     public void loadMore(int startIndex) {
         if (!isLoading()) {
             startLoading(true);
-            //fetch more data;
-            this.books = this.bookRepository.getBooks(startIndex);
+            this.startIndex.setValue(startIndex);
         }
     }
 
     public void refresh() {
-        this.books = this.bookRepository.getBooks(0);
+        this.startIndex.setValue(0);
     }
 }

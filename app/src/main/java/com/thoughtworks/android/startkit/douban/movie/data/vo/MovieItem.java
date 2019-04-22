@@ -1,4 +1,4 @@
-package com.thoughtworks.android.startkit.douban.movie.data.domain;
+package com.thoughtworks.android.startkit.douban.movie.data.vo;
 
 import android.os.Parcelable;
 import android.text.TextUtils;

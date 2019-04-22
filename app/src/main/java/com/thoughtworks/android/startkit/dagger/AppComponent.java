@@ -15,8 +15,8 @@ import dagger.android.AndroidInjector;
 @Component(modules = {
         AndroidInjectionModule.class,
         DoubanMovieViewModelModule.class,
+        DoubanMovieModule.class,
         DoubanMovieListFragmentModule.class,
-        DoubanMovieModule.class
 })
 public interface AppComponent extends AndroidInjector<StartkitApplication> {
 }

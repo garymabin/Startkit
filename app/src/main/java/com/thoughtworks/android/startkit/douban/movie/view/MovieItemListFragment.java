@@ -63,7 +63,7 @@ public class MovieItemListFragment extends Fragment implements SwipeRefreshLayou
 
         bookListViewModel = ViewModelProviders.of(this, viewModelFactory).get(DoubanMovieViewModel.class);
 
-        bookListViewModel.getBooks().observe(this, books -> {
+        bookListViewModel.getMovies().observe(this, books -> {
             assert books != null;
             boolean isLoadingMode = books.getStart() != 0;
             bookListViewModel.stopLoading(isLoadingMode);
@@ -94,6 +94,7 @@ public class MovieItemListFragment extends Fragment implements SwipeRefreshLayou
                     }
                 });
         bookListViewModel.startLoading(false);
+        bookListViewModel.refresh();
     }
 
     @Nullable
