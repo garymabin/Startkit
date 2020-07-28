@@ -1,4 +1,4 @@
-package com.thoughtworks.android.startkit.douban.movie.module;
+package com.thoughtworks.android.startkit.douban.movie.dagger.module;
 
 import com.thoughtworks.android.startkit.dagger.AppViewModelFactory;
 import com.thoughtworks.android.startkit.dagger.ViewModelKey;

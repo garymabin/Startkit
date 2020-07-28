@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.thoughtworks.android.startkit.dagger.DaggerAppComponent;
+import com.thoughtworks.android.startkit.dagger.module.ApplicationModule;
+import com.thoughtworks.android.startkit.dagger.module.DatabaseModule;
 
 import javax.inject.Inject;
 
@@ -24,7 +26,11 @@ public class StartkitApplication extends Application implements HasSupportFragme
     public void onCreate() {
         super.onCreate();
         instance = this;
-        DaggerAppComponent.create().inject(this);
+        DaggerAppComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .databaseModule(new DatabaseModule(this))
+                .build()
+                .inject(this);
     }
 
 

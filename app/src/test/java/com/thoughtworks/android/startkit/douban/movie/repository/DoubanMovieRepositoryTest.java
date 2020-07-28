@@ -2,11 +2,12 @@ package com.thoughtworks.android.startkit.douban.movie.repository;
 
 
 import com.thoughtworks.android.startkit.douban.movie.data.api.IDoubanMovieAPI;
-import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieData;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
+import com.thoughtworks.android.startkit.douban.movie.rule.RxSchedulersOverrideRule;
+import com.thoughtworks.android.startkit.retrofit.ApiResponse;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
@@ -19,14 +20,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
-import io.reactivex.Single;
-import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
+import androidx.lifecycle.MutableLiveData;
+import retrofit2.Response;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 public class DoubanMovieRepositoryTest {
 
@@ -38,19 +38,13 @@ public class DoubanMovieRepositoryTest {
 
     @Before
     public void setUp() {
-        RxJavaPlugins.setIoSchedulerHandler(_wtf -> Schedulers.trampoline());
-        RxJavaPlugins.setComputationSchedulerHandler(_wtf -> Schedulers.trampoline());
-        RxJavaPlugins.setNewThreadSchedulerHandler(_wtf -> Schedulers.trampoline());
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(_wtf -> Schedulers.trampoline());
         MockitoAnnotations.initMocks(this);
-        RxJavaPlugins.setErrorHandler(throwable -> {}); // nothing or some logging
     }
 
-    @After
-    public void tearDown() {
-        RxJavaPlugins.reset();
-        RxAndroidPlugins.reset();
-    }
+    @Rule
+    public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
+    @Rule
+    public RxSchedulersOverrideRule rxSchedulersOverrideRule = new RxSchedulersOverrideRule();
 
     @Test
     public void shouldCallDoubanBooksAPIForBooks() {
@@ -59,20 +53,22 @@ public class DoubanMovieRepositoryTest {
         //TODO: better to create real data to verify detail fields.
         List<DouBanMovieResponseData.MovieBean> expectedBooks = Collections.emptyList();
 
+        LiveData<ApiResponse<DouBanMovieResponseData>> apiResponseLiveData = new MutableLiveData<>();
+        ((MutableLiveData<ApiResponse<DouBanMovieResponseData>>) apiResponseLiveData).setValue(
+                new ApiResponse<>(Response.success(DouBanMovieResponseData.builder()
+                        .subjects(expectedBooks)
+                        .build())));
         //When
         Mockito.when(doubanMovieAPI.getMovie(ArgumentMatchers.any()))
-                .thenReturn(Single.just(
-                        DouBanMovieResponseData.builder()
-                                .subjects(expectedBooks)
-                                .build()));
+                .thenReturn(apiResponseLiveData);
         //Then
-        LiveData<MovieData> actualLiveData = doubanMovieRepository.getMovie(0);
+        LiveData<ApiResponse<DouBanMovieResponseData>> actualLiveData = doubanMovieRepository.getMovie(0);
 
         Mockito.verify(doubanMovieAPI).getMovie(queryMapCaptor.capture());
 
         assertEquals("20", queryMapCaptor.getValue().get("count"));
         assertEquals("0", queryMapCaptor.getValue().get("start"));
 
-        assertNull(actualLiveData.getValue());
+        assertNotNull(actualLiveData.getValue());
     }
 }

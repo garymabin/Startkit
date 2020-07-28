@@ -35,7 +35,7 @@ android {
 dependencies {
     def lifecycle_version = "2.0.0"
     def dagger_version = "2.22.1"
-    def room_version = "2.1.0-alpha06"
+    def room_version = "2.2.5"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -77,6 +77,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     // optional - RxJava support for Room
     implementation "androidx.room:room-rxjava2:$room_version"

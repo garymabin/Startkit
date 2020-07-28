@@ -4,9 +4,10 @@ package com.thoughtworks.android.startkit.douban.movie.viewmodel;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieData;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.MovieItem;
+import com.thoughtworks.android.startkit.douban.movie.intereactor.DoubanMovieInteractor;
 import com.thoughtworks.android.startkit.douban.movie.repository.IDoubanMovieRepository;
 import com.thoughtworks.android.startkit.retrofit.ApiResponse;
-import com.thoughtworks.android.startkit.retrofit.DouBanMovie;
+import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovie;
 import com.thoughtworks.android.startkit.util.AbsentLiveData;
 import com.thoughtworks.android.startkit.wrapper.Event;
 
@@ -39,29 +40,19 @@ public class DoubanMovieViewModel extends ViewModel {
         if (index == null) {
             return AbsentLiveData.create();
         } else {
-            return Transformations.map(this.movieRepository.getMovie(index), transformFromAPIResponseToPageData());
+            return this.movieInteractor.loadMovie(index);
         }
     });
-
-    /* package */ static Function<ApiResponse<DouBanMovieResponseData>, MovieData> transformFromAPIResponseToPageData() {
-        return response -> {
-            DouBanMovieResponseData douBanMovieResponseData = response.body;
-            List<MovieItem> list = new ArrayList<>();
-            for (DouBanMovieResponseData.MovieBean bean : douBanMovieResponseData.getSubjects()) {
-                list.add(new DouBanMovie(bean));
-            }
-            return new MovieData(list, douBanMovieResponseData.getTotal(), douBanMovieResponseData.getCount(), douBanMovieResponseData.getStart());
-        };
-    }
 
     @Getter
     /**/ MutableLiveData<Event<Integer>> loadingEvent = new MutableLiveData<>();
 
-    private IDoubanMovieRepository movieRepository;
+
+    private DoubanMovieInteractor movieInteractor;
 
     @Inject
-    DoubanMovieViewModel(IDoubanMovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    DoubanMovieViewModel(DoubanMovieInteractor movieInteractor) {
+        this.movieInteractor = movieInteractor;
     }
 
     public void startLoading(boolean isLoadingMore) {

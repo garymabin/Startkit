@@ -5,12 +5,18 @@ import com.thoughtworks.android.startkit.douban.movie.data.persistence.record.IM
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(tableName = "douban_movie")
 public class RoomMovie implements IMovieRecord {
 
     @PrimaryKey

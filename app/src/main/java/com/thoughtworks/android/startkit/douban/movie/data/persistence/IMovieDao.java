@@ -7,7 +7,7 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 
 public interface IMovieDao<T extends IMovieRecord> {
-    //TODO: is there a way to decouple from direct reference from LiveData?
+    //TODO: is there a way to decouple from direct reference to LiveData?
     LiveData<List<T>> getAll();
-    void insertAll(T... movies);
+    void insertAll(List<T> movies);
 }

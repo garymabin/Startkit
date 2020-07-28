@@ -1,4 +1,4 @@
-package com.thoughtworks.android.startkit.retrofit;
+package com.thoughtworks.android.startkit.douban.movie.data.vo;
 
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.record.IMovieRecord;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.Movie;

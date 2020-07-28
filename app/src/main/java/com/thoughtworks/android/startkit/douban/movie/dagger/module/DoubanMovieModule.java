@@ -1,10 +1,10 @@
-package com.thoughtworks.android.startkit.douban.movie.module;
+package com.thoughtworks.android.startkit.douban.movie.dagger.module;
 
 
+import com.thoughtworks.android.startkit.douban.DoubanAPIRetrofitSingletonImpl;
 import com.thoughtworks.android.startkit.douban.movie.data.api.IDoubanMovieAPI;
 import com.thoughtworks.android.startkit.douban.movie.repository.DoubanMovieRepository;
 import com.thoughtworks.android.startkit.douban.movie.repository.IDoubanMovieRepository;
-import com.thoughtworks.android.startkit.retrofit.DoubanAPIRetrofitSingletonImpl;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,6 +1,7 @@
-package com.thoughtworks.android.startkit.retrofit;
+package com.thoughtworks.android.startkit.douban;
 
 import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
+import com.thoughtworks.android.startkit.retrofit.ApiResponse;
 
 import java.util.Map;
 
