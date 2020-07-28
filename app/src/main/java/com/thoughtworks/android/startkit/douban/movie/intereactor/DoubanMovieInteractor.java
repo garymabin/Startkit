@@ -4,6 +4,7 @@ import com.thoughtworks.android.startkit.AppDatabase;
 import com.thoughtworks.android.startkit.AppExecutors;
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.IMovieDao;
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovie;
+import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovieDao;
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.record.IMovieRecord;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovie;
 import com.thoughtworks.android.startkit.douban.movie.data.vo.DouBanMovieResponseData;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import lombok.Getter;
 
 public class DoubanMovieInteractor {
 
@@ -30,12 +32,13 @@ public class DoubanMovieInteractor {
     AppExecutors appExecutors;
 
     @Inject
-    DoubanMovieInteractor(AppDatabase appDatabase, IDoubanMovieRepository doubanMovieRepository, AppExecutors appExecutors) {
+    DoubanMovieInteractor(IMovieDao<RoomMovie> movieDao, IDoubanMovieRepository doubanMovieRepository, AppExecutors appExecutors) {
         this.doubanMovieRepository = doubanMovieRepository;
         this.appExecutors = appExecutors;
-        this.movieDao = appDatabase.movieDao();
+        this.movieDao = movieDao;
     }
 
+    @Getter
     private MediatorLiveData<MovieData> result = new MediatorLiveData<>();
 
     public LiveData<MovieData> loadMovie(int startIndex) {
@@ -67,7 +70,6 @@ public class DoubanMovieInteractor {
             );
             result.setValue(transformFromAPIResponseToPageData().apply(response));
         });
-        doubanMovieRepository.getMovie(startIndex);
     }
 
     private boolean shouldFetchFromNetwork(List<RoomMovie> data, int startIndex) {

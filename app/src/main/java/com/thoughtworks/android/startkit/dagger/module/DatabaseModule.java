@@ -5,7 +5,8 @@ import android.content.Context;
 import com.thoughtworks.android.startkit.AppDatabase;
 import com.thoughtworks.android.startkit.dagger.module.annotation.ApplicationContext;
 import com.thoughtworks.android.startkit.dagger.module.annotation.DatabaseInfo;
-import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovieDao;
+import com.thoughtworks.android.startkit.douban.movie.data.persistence.IMovieDao;
+import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovie;
 
 import javax.inject.Singleton;
 
@@ -42,5 +43,5 @@ public class DatabaseModule {
 
     @Singleton
     @Provides
-    RoomMovieDao providePersonDao(AppDatabase db) { return db.movieDao(); }
+    IMovieDao<RoomMovie> providePersonDao(AppDatabase db) { return db.movieDao(); }
 }

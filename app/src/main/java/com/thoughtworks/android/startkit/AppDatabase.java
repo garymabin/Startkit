@@ -1,6 +1,5 @@
 package com.thoughtworks.android.startkit;
 
-import com.thoughtworks.android.startkit.douban.movie.data.persistence.IMovieDao;
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovie;
 import com.thoughtworks.android.startkit.douban.movie.data.persistence.impl.RoomMovieDao;
 
