@@ -37,6 +37,11 @@ dependencies {
     def lifecycle_version = "2.0.0"
     def dagger_version = "2.22.1"
     def room_version = "2.2.5"
+    def core_version = "1.1.0"
+    def ext_junit_version = "1.0.0"
+    def ext_truth_version = "1.0.0"
+    def espresso_version = "3.1.0"
+    def fragment_version = "1.1.0"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -95,4 +100,17 @@ dependencies {
     testImplementation 'androidx.test:core:1.1.0'
     // Optional -- Mockito framework
     testImplementation 'org.mockito:mockito-core:2.23.4'
+
+    androidTestAnnotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    debugImplementation 'androidx.fragment:fragment-testing:' + fragment_version
+    androidTestImplementation 'androidx.test:core:' + core_version
+    androidTestImplementation 'androidx.test.ext:junit:' + ext_junit_version
+    androidTestImplementation 'androidx.test:rules:' + core_version
+    androidTestImplementation 'androidx.test:runner:' + core_version
+    androidTestImplementation 'androidx.test.ext:truth:' + ext_truth_version
+    androidTestImplementation 'androidx.test.espresso:espresso-core:' + espresso_version
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:' + espresso_version
+
 }

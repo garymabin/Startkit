@@ -1,7 +1,6 @@
-package com.thoughtworks.android.startkit.douban.movie.dagger.module;
+package com.thoughtworks.android.startkit.dagger.module;
 
-
-import com.thoughtworks.android.startkit.douban.DoubanAPIRetrofitSingletonImpl;
+import com.thoughtworks.android.startkit.LocalDoubanBooksAPI;
 import com.thoughtworks.android.startkit.douban.movie.data.api.IDoubanMovieAPI;
 import com.thoughtworks.android.startkit.douban.movie.repository.DoubanMovieRepository;
 import com.thoughtworks.android.startkit.douban.movie.repository.IDoubanMovieRepository;
@@ -12,12 +11,12 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class DoubanMovieModule {
+public class TestLocalMovieModule {
 
     @Provides
     @Singleton
     static IDoubanMovieAPI provideDoubanBooksAPI() {
-        return new DoubanAPIRetrofitSingletonImpl();
+        return new LocalDoubanBooksAPI();
     }
 
     @Provides
@@ -26,4 +25,3 @@ public class DoubanMovieModule {
         return new DoubanMovieRepository(provideDoubanBooksAPI());
     }
 }
-
