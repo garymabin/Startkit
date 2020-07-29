@@ -49,8 +49,7 @@ public class ExampleInstrumentedTest {
 
         Intents.init();
 
-        FragmentScenario<MovieItemListFragment> movieItemListFragmentFragmentScenario =
-                FragmentScenario.launchInContainer(MovieItemListFragment.class);
+        FragmentScenario.launchInContainer(MovieItemListFragment.class);
         onView(withContentDescription(R.string.movie_list)).perform(click());
 
         intended(hasComponent(BookDetailActivity.class.getName()));
